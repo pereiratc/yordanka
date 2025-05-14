@@ -1,0 +1,21 @@
+{
+  "name": "yordanka",
+  "version": "1.0.0",
+  "description": "job portal created with PERN stack + elearing platform included",
+  "autor": "Ferreira Pereira",
+  "main": "index.js",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "turbo": "^2.5.3"
+  }
+}
