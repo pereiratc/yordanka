@@ -9,13 +9,25 @@ datasource db {
 }
 
 model User {
+  id           String           @id @default(cuid())
+  email        String           @unique
+  password     String
+  name         String
+  role         RoleAssignment[]
+  jobs         Job[]            @relation("UserJobs")
+  courses      Course[]         @relation("TrainerCourses")
+  applications Application[]    @relation("UserApplications") // <- adicionado
+  createdAt    DateTime         @default(now())
+}
+
+model Application {
   id        String   @id @default(cuid())
-  email     String   @unique
-  password  String
-  name      String
-  role      RoleAssignment[]
-  jobs      Job[]        @relation("UserJobs")
-  courses   Course[]     @relation("TrainerCourses")
+  message   String?
+  user      User     @relation("UserApplications", fields: [userId], references: [id])
+  userId    String
+  job       Job      @relation(fields: [jobId], references: [id])
+  jobId     String
+  status    String   @default("pending")
   createdAt DateTime @default(now())
 }
 
@@ -35,17 +47,6 @@ model Job {
   recruiterId String
   applications Application[]
   createdAt   DateTime @default(now())
-}
-
-model Application {
-  id        String   @id @default(cuid())
-  message   String?
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
-  job       Job      @relation(fields: [jobId], references: [id])
-  jobId     String
-  status    String   @default("pending")
-  createdAt DateTime @default(now())
 }
 
 model Course {
